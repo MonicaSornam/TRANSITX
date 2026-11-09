@@ -1,0 +1,136 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Dashboard – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar" style="background: #243342;">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <span>🚌</span>
+          <span>TRANSITX</span>
+        </a>
+        <span class="sidebar-brand-badge" style="background: var(--teal);">Driver Portal</span>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="driver-dashboard.html" class="sidebar-link active">
+            <span class="icon">🕹️</span>
+            <span>Trip Console</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-tracking.html" class="sidebar-link">
+            <span class="icon">📍</span>
+            <span>Live Map</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-routes.html" class="sidebar-link">
+            <span class="icon">🗺️</span>
+            <span>All Routes</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="auth.logout()">
+          <span>🚪</span>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h2>Driver Trip Console</h2>
+          <p>Driver: <strong id="driver-name">Loading...</strong> (<span id="driver-code">DRV001</span>)</p>
+        </div>
+        <div class="topbar-right">
+          <div id="driver-trip-status">
+            <span class="badge" style="background:#E2E8F0; color:#475569;">Checking active trip...</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- Assigned Fleet & Route Info -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Assigned Vehicle</div>
+              <div class="stat-value" id="driver-bus">BUS-01</div>
+            </div>
+            <div class="stat-icon">🚌</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Assigned Route</div>
+              <div class="stat-value" style="font-size: 1.35rem;" id="driver-route">City Central - Campus Express</div>
+            </div>
+            <div class="stat-icon">🛣️</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Shift Start</div>
+              <div class="stat-value" style="font-size: 1.45rem; color: var(--teal);">07:30 AM</div>
+            </div>
+            <div class="stat-icon">⏱️</div>
+          </div>
+        </div>
+
+        <!-- Trip Operation Controls -->
+        <div class="content-box">
+          <div class="content-box-header">
+            <h3>Trip Dispatch & Controls</h3>
+            <span class="badge badge-demo">Simulated GPS Movement Control</span>
+          </div>
+
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <button id="btn-start-trip" class="btn btn-teal" style="padding: 0.85rem 1.75rem; font-size: 1rem;">
+              ▶ Start Trip
+            </button>
+            <button id="btn-end-trip" class="btn btn-navy" style="padding: 0.85rem 1.75rem; font-size: 1rem;" disabled>
+              ⏹ End Trip (Destination Reached)
+            </button>
+            <button onclick="simulateDriverLocationStep()" class="btn btn-outline-teal">
+              📍 Transmit Next GPS Coordinates
+            </button>
+          </div>
+
+          <div style="background: var(--sky-blue-light); padding: 1.25rem; border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+            <h4 style="margin-bottom: 0.75rem; color: var(--navy);">Broadcast Trip Status:</h4>
+            <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <button class="btn btn-sm btn-teal" onclick="updateDriverStatus('ON_ROUTE')">Set ON ROUTE</button>
+              <button class="btn btn-sm" style="background:#DC2626; color:#fff;" onclick="updateDriverStatus('DELAYED')">Report TRAFFIC DELAY</button>
+              <button class="btn btn-sm btn-navy" onclick="updateDriverStatus('REACHED_DESTINATION')">Arrived at Campus</button>
+            </div>
+          </div>
+
+          <h4 style="margin-bottom: 0.75rem; color: var(--navy);">Sequential Stops on Your Route:</h4>
+          <div id="driver-stops-list" style="border: 1px solid var(--border-light); border-radius: var(--radius-md); background: var(--white); max-height: 280px; overflow-y: auto;">
+            <!-- Populated via driver.js -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/driver.js"></script>
+</body>
+</html>

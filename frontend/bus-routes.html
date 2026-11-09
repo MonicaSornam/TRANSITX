@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bus Routes & Schedules – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon">🚌</span>
+        <span>TRANSITX</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="bus-routes.html" class="nav-link active">Bus Routes</a></li>
+        <li><a href="bus-tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="driver-details.html" class="nav-link">Driver Details</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navbar-auth-section">
+        <a href="login.html" class="btn btn-outline-sky btn-sm">Login</a>
+        <a href="register.html" class="btn btn-teal btn-sm">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Route Search Header -->
+  <header style="background: var(--navy); color: var(--white); padding: 3.5rem 0 3rem;">
+    <div class="container" style="text-align: center;">
+      <span class="hero-tagline">Campus Transportation Network</span>
+      <h1 style="color: var(--white); margin-bottom: 1rem;">College Bus Routes & Schedules</h1>
+      <p style="color: var(--sky-blue); max-width: 600px; margin: 0 auto 2rem;">
+        Search available transit routes by route name, bus number, or boarding and destination points.
+      </p>
+
+      <div style="max-width: 640px; margin: 0 auto;">
+        <input type="text" id="route-search-input" class="form-control" 
+               placeholder="🔍 Search by route name, bus number, or starting point..." 
+               style="padding: 1rem 1.25rem; font-size: 1.05rem; box-shadow: var(--shadow-md);">
+      </div>
+    </div>
+  </header>
+
+  <!-- Routes Grid Section -->
+  <section class="section">
+    <div class="container">
+      <div class="card-grid" id="routes-container">
+        <!-- Dynamically rendered via routes.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Route Details Modal -->
+  <div id="route-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-route-title" style="margin: 0; font-size: 1.35rem; color: var(--navy);">Route Details</h3>
+        <button class="modal-close" onclick="closeRouteModal()">&times;</button>
+      </div>
+      <div id="modal-route-body">
+        <!-- Injected via routes.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>TRANSITX – Smart Campus Transportation Network</div>
+        <div>Built for Student Commute Safety & Review Demo</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/routes.js"></script>
+</body>
+</html>

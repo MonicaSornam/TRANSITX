@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bus Pass – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <span>🚌</span>
+          <span>TRANSITX</span>
+        </a>
+        <span class="sidebar-brand-badge">Student Portal</span>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="student-dashboard.html" class="sidebar-link">
+            <span class="icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-routes.html" class="sidebar-link">
+            <span class="icon">🗺️</span>
+            <span>Bus Routes</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-tracking.html" class="sidebar-link">
+            <span class="icon">📍</span>
+            <span>Live Tracking</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="driver-details.html" class="sidebar-link">
+            <span class="icon">👨‍✈️</span>
+            <span>Driver Details</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-pass.html" class="sidebar-link">
+            <span class="icon">📝</span>
+            <span>Apply Bus Pass</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="my-bus-pass.html" class="sidebar-link active">
+            <span class="icon">🎫</span>
+            <span>My Bus Pass</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="auth.logout()">
+          <span>🚪</span>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h2>My Digital Bus Pass</h2>
+          <p>Official collegiate boarding credential with cryptographically verifiable QR code.</p>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- Rendered via bus-pass.js -->
+        <div id="my-pass-view">
+          <div style="text-align: center; padding: 4rem;">
+            <p>Loading your digital bus pass...</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/bus-pass.js"></script>
+</body>
+</html>

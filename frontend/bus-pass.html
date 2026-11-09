@@ -1,0 +1,139 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply Bus Pass – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <span>🚌</span>
+          <span>TRANSITX</span>
+        </a>
+        <span class="sidebar-brand-badge">Student Portal</span>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="student-dashboard.html" class="sidebar-link">
+            <span class="icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-routes.html" class="sidebar-link">
+            <span class="icon">🗺️</span>
+            <span>Bus Routes</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-tracking.html" class="sidebar-link">
+            <span class="icon">📍</span>
+            <span>Live Tracking</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="driver-details.html" class="sidebar-link">
+            <span class="icon">👨‍✈️</span>
+            <span>Driver Details</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-pass.html" class="sidebar-link active">
+            <span class="icon">📝</span>
+            <span>Apply Bus Pass</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="my-bus-pass.html" class="sidebar-link">
+            <span class="icon">🎫</span>
+            <span>My Bus Pass</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="auth.logout()">
+          <span>🚪</span>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h2>Apply for Student Bus Pass</h2>
+          <p>Submit your application for college transportation authorization.</p>
+        </div>
+        <div class="topbar-right">
+          <a href="my-bus-pass.html" class="btn btn-outline-teal btn-sm">View My Existing Pass</a>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <div class="content-box" style="max-width: 720px; margin: 0 auto;">
+          <div class="content-box-header">
+            <h3>Bus Pass Application Form</h3>
+            <span class="badge badge-demo">Academic Term Pass</span>
+          </div>
+
+          <form id="apply-pass-form">
+            <div class="form-group">
+              <label class="form-label">Select Campus Bus Route *</label>
+              <select id="pass-route-select" class="form-control" required>
+                <option value="">Loading routes...</option>
+              </select>
+              <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; display: block;">
+                Choose the route that passes closest to your residence.
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Select Boarding Stop *</label>
+              <select id="pass-stop-select" class="form-control" disabled required>
+                <option value="">Please select a bus route first</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Upload Student ID Proof (Image or PDF) *</label>
+              <input type="file" id="pass-id-proof" class="form-control" accept="image/*,.pdf">
+              <small style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; display: block;">
+                Upload a scanned copy or clear photo of your official college identity card.
+              </small>
+            </div>
+
+            <div style="background: var(--sky-blue-light); padding: 1.25rem; border-radius: var(--radius-md); margin: 1.5rem 0; font-size: 0.9rem; color: var(--navy); border-left: 3px solid var(--teal);">
+              <strong>Application Guidelines:</strong>
+              <ul style="margin-left: 1.25rem; margin-top: 0.5rem; font-size: 0.85rem;">
+                <li>Applications are reviewed and approved by the Transport Admin within 24 hours.</li>
+                <li>Once approved, a digital pass with a cryptographic QR code will be generated.</li>
+                <li>You can print or download your pass directly from the portal.</li>
+              </ul>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 1rem;">
+              <a href="student-dashboard.html" class="btn btn-navy">Cancel</a>
+              <button type="submit" class="btn btn-teal">Submit Bus Pass Application</button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/bus-pass.js"></script>
+</body>
+</html>

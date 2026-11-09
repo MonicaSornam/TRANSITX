@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon">🚌</span>
+        <span>TRANSITX</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="bus-routes.html" class="nav-link">Bus Routes</a></li>
+        <li><a href="bus-tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="driver-details.html" class="nav-link">Driver Details</a></li>
+        <li><a href="contact.html" class="nav-link active">Contact</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navbar-auth-section">
+        <a href="login.html" class="btn btn-outline-sky btn-sm">Login</a>
+        <a href="register.html" class="btn btn-teal btn-sm">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <header style="background: var(--navy); color: var(--white); padding: 3.5rem 0 3rem; text-align: center;">
+    <div class="container">
+      <span class="hero-tagline">24/7 Campus Support</span>
+      <h1 style="color: var(--white); margin-bottom: 1rem;">Campus Transport Helpdesk</h1>
+      <p style="color: var(--sky-blue); max-width: 600px; margin: 0 auto;">
+        Have a question about bus passes, route alterations, or lost items on a bus? Reach out to our campus transportation department.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;">
+        <div>
+          <h2 style="margin-bottom: 1.5rem;">Get in Touch with Transport Department</h2>
+
+          <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 2rem;">
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div class="card-icon" style="margin: 0;">📍</div>
+              <div>
+                <strong style="color: var(--navy); font-size: 1.1rem;">Central Transit Hub</strong>
+                <p>Ground Floor, Transportation Building, Near Campus Gate 1, College Campus</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div class="card-icon" style="margin: 0;">📞</div>
+              <div>
+                <strong style="color: var(--navy); font-size: 1.1rem;">Helpline & Emergency</strong>
+                <p>General Enquiries: +91 98765 43210<br>Emergency Breakdown: +91 98765 43219</p>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; align-items: flex-start;">
+              <div class="card-icon" style="margin: 0;">✉️</div>
+              <div>
+                <strong style="color: var(--navy); font-size: 1.1rem;">Official Communication</strong>
+                <p>Email: transport@transitx.edu<br>Bus Pass Desk: buspass@transitx.edu</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="background: var(--sky-blue-light); padding: 1.5rem; border-radius: var(--radius-md); border-left: 4px solid var(--teal);">
+            <strong style="color: var(--navy);">Operating Hours:</strong>
+            <p style="margin-top: 0.35rem; font-size: 0.95rem;">
+              Monday – Saturday: 06:30 AM – 08:30 PM<br>
+              Sunday: On-call Emergency Support only
+            </p>
+          </div>
+        </div>
+
+        <div class="content-box">
+          <h3 style="margin-bottom: 1rem;">Send a Transit Message</h3>
+          <form onsubmit="event.preventDefault(); alert('Thank you! Your inquiry has been dispatched to the transport control room.'); event.target.reset();">
+            <div class="form-group">
+              <label class="form-label">Full Name *</label>
+              <input type="text" class="form-control" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email or Register Number *</label>
+              <input type="text" class="form-control" placeholder="Email or Reg No" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Subject</label>
+              <select class="form-control">
+                <option>Bus Route Inquiry</option>
+                <option>Bus Pass Issue</option>
+                <option>Lost & Found on Bus</option>
+                <option>Driver Feedback</option>
+                <option>Schedule Delay Query</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Message *</label>
+              <textarea class="form-control" rows="4" placeholder="How can the transit desk help you today?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-teal" style="width: 100%;">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>TRANSITX – Smart Campus Transportation and Bus Tracking System</div>
+        <div>Dedicated Student Support</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

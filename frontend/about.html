@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon">🚌</span>
+        <span>TRANSITX</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li><a href="bus-routes.html" class="nav-link">Bus Routes</a></li>
+        <li><a href="bus-tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="driver-details.html" class="nav-link">Driver Details</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navbar-auth-section">
+        <a href="login.html" class="btn btn-outline-sky btn-sm">Login</a>
+        <a href="register.html" class="btn btn-teal btn-sm">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About Header -->
+  <header style="background: var(--navy); color: var(--white); padding: 4rem 0 3rem; text-align: center;">
+    <div class="container">
+      <span class="hero-tagline">About Our Mission</span>
+      <h1 style="color: var(--white); margin-bottom: 1rem;">Transforming Campus Transportation</h1>
+      <p style="color: var(--sky-blue); max-width: 650px; margin: 0 auto; font-size: 1.1rem;">
+        TRANSITX provides smart, punctual, and safe transit solutions engineered exclusively for college students, faculty, and campus authorities.
+      </p>
+    </div>
+  </header>
+
+  <!-- Mission & Vision -->
+  <section class="section">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;">
+        <div>
+          <span class="tag" style="color: var(--teal); font-weight: 700; text-transform: uppercase;">Our Purpose</span>
+          <h2 style="margin: 0.5rem 0 1.25rem;">Dedicated to Safe & Transparent Campus Mobility</h2>
+          <p style="margin-bottom: 1rem;">
+            College transit presents unique challenges: students waiting at distant bus stops without arrival visibility, paper bus passes being misplaced or falsified, and transport managers struggling to oversee fleet operations manually.
+          </p>
+          <p style="margin-bottom: 1.5rem;">
+            TRANSITX unifies these silos into a modern digital platform. With interactive OpenStreetMap tracking, simulated GPS algorithms, digital bus pass issuance, and role-based portals for students, drivers, and administrators, we make every college commute dependable.
+          </p>
+          <div style="display: flex; gap: 1rem;">
+            <a href="bus-routes.html" class="btn btn-teal">Explore Routes</a>
+            <a href="contact.html" class="btn btn-outline-teal">Contact Helpdesk</a>
+          </div>
+        </div>
+
+        <div style="background: var(--white); padding: 2.5rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-md); border: 1px solid var(--border-light);">
+          <h3 style="margin-bottom: 1.25rem; color: var(--navy);">Core Architectural Pillars</h3>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 1rem;">
+            <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+              <span style="color: var(--teal); font-size: 1.25rem;">✔</span>
+              <div>
+                <strong>Precision Live Tracking</strong>
+                <p style="font-size: 0.9rem;">Interactive Leaflet.js mapping with OpenStreetMap geometry and simulated movement updates.</p>
+              </div>
+            </li>
+            <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+              <span style="color: var(--teal); font-size: 1.25rem;">✔</span>
+              <div>
+                <strong>Cryptographic Pass Verification</strong>
+                <p style="font-size: 0.9rem;">Digital passes secured with verifiable QR codes to prevent misuse and expedite bus onboarding.</p>
+              </div>
+            </li>
+            <li style="display: flex; gap: 0.75rem; align-items: flex-start;">
+              <span style="color: var(--teal); font-size: 1.25rem;">✔</span>
+              <div>
+                <strong>Enterprise Java Backend</strong>
+                <p style="font-size: 0.9rem;">High-performance Spring Boot 3 with Spring Security, BCrypt password hashing, and MySQL relational integrity.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fleet Statistics -->
+  <section class="section" style="background: var(--sky-blue); color: var(--navy);">
+    <div class="container" style="text-align: center;">
+      <h2 style="margin-bottom: 2.5rem;">TRANSITX Campus Footprint</h2>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem;">
+        <div>
+          <div style="font-family: var(--font-serif); font-size: 3rem; font-weight: 700; color: var(--navy);">15+</div>
+          <div style="font-weight: 600; text-transform: uppercase; font-size: 0.9rem;">College Buses</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-serif); font-size: 3rem; font-weight: 700; color: var(--navy);">30+</div>
+          <div style="font-weight: 600; text-transform: uppercase; font-size: 0.9rem;">Transit Stops</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-serif); font-size: 3rem; font-weight: 700; color: var(--navy);">2500+</div>
+          <div style="font-weight: 600; text-transform: uppercase; font-size: 0.9rem;">Daily Student Riders</div>
+        </div>
+        <div>
+          <div style="font-family: var(--font-serif); font-size: 3rem; font-weight: 700; color: var(--navy);">99.2%</div>
+          <div style="font-weight: 600; text-transform: uppercase; font-size: 0.9rem;">On-Time Punctuality</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="logo" style="margin-bottom: 1rem;">
+            <span class="bus-icon">🚌</span>
+            <span>TRANSITX</span>
+          </div>
+          <p style="color: var(--sky-blue); font-size: 0.95rem; margin-bottom: 1.25rem;">
+            Your Campus. Your Bus. Your Journey. Delivering modern, reliable, and secure college transportation management.
+          </p>
+          <div style="font-size: 0.85rem; color: var(--sky-blue); opacity: 0.8;">
+            © 2026 TRANSITX Campus Systems. All rights reserved.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="bus-routes.html">Bus Routes</a></li>
+            <li><a href="bus-tracking.html">Live Tracking</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Portals</h4>
+          <ul class="footer-links">
+            <li><a href="login.html">Student Login</a></li>
+            <li><a href="register.html">Student Registration</a></li>
+            <li><a href="driver-login.html">Driver Portal</a></li>
+            <li><a href="admin-login.html">Admin Portal</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Campus Transport Desk</h4>
+          <p style="color: var(--sky-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">📍 Campus Gate 1 Bus Bay</p>
+          <p style="color: var(--sky-blue); font-size: 0.9rem; margin-bottom: 0.5rem;">📞 Helpline: +91 98765 43210</p>
+          <p style="color: var(--sky-blue); font-size: 0.9rem;">✉️ transport@transitx.edu</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+</body>
+</html>

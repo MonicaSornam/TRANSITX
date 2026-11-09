@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body style="background: #243342;">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar" style="background: #1B2633;">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon" style="background: #567C8D;">🛡️</span>
+        <span>TRANSITX ADMIN</span>
+      </a>
+
+      <div class="nav-auth">
+        <a href="index.html" class="btn btn-outline-sky btn-sm">Campus Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card" style="box-shadow: 0 20px 40px rgba(0,0,0,0.3); border-top: 4px solid var(--navy);">
+      <div class="auth-header">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🔐</div>
+        <h2>Administrative Console</h2>
+        <p>Authorized personnel only: Manage buses, routes, drivers, and bus passes</p>
+      </div>
+
+      <div id="admin-login-alert" style="display: none;"></div>
+
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label class="form-label">Admin Username / Email</label>
+          <input type="text" id="admin-user-input" class="form-control" placeholder="e.g. admin or admin@transitx.edu" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Master Password</label>
+          <input type="password" id="admin-pass-input" class="form-control" placeholder="Enter admin password" required>
+        </div>
+
+        <div style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--navy); background: var(--sky-blue-light); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--sky-blue);">
+          Default admin credentials: <strong>admin</strong> / <strong>admin123</strong>
+        </div>
+
+        <button type="submit" class="btn btn-navy" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+          Authenticate as Administrator
+        </button>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.88rem;">
+          <a href="index.html" style="color: var(--text-muted);">← Return to Public Website</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer" style="background: #1B2633; padding: 2rem 0;">
+    <div class="container" style="text-align: center; font-size: 0.85rem;">
+      © 2026 TRANSITX – Administrative Control System
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('admin-login-alert');
+      alertBox.style.display = 'none';
+
+      const identifier = document.getElementById('admin-user-input').value.trim();
+      const password = document.getElementById('admin-pass-input').value;
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerText = 'Verifying Admin credentials...';
+
+      try {
+        const res = await api.post('/auth/login', { identifier, password });
+        const data = res.data;
+
+        if (data.role !== 'ROLE_ADMIN') {
+          throw new Error('Access denied. Administrator privileges required.');
+        }
+
+        auth.setUser(data, data.token);
+        showToast('Admin authorized', 'success');
+
+        setTimeout(() => {
+          window.location.href = 'admin-dashboard.html';
+        }, 1000);
+      } catch (err) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = err.message || 'Invalid administrator credentials.';
+        alertBox.style.display = 'block';
+        btn.disabled = false;
+        btn.innerText = 'Authenticate as Administrator';
+      }
+    });
+  </script>
+</body>
+</html>

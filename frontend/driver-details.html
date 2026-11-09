@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Information – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon">🚌</span>
+        <span>TRANSITX</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li><a href="bus-routes.html" class="nav-link">Bus Routes</a></li>
+        <li><a href="bus-tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="driver-details.html" class="nav-link active">Driver Details</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navbar-auth-section">
+        <a href="login.html" class="btn btn-outline-sky btn-sm">Login</a>
+        <a href="register.html" class="btn btn-teal btn-sm">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <header style="background: var(--navy); color: var(--white); padding: 3.5rem 0 3rem; text-align: center;">
+    <div class="container">
+      <span class="hero-tagline">Safety & Accountability</span>
+      <h1 style="color: var(--white); margin-bottom: 1rem;">Certified Campus Drivers</h1>
+      <p style="color: var(--sky-blue); max-width: 620px; margin: 0 auto;">
+        Meet our experienced, certified, and background-checked drivers operating the college fleet.
+      </p>
+    </div>
+  </header>
+
+  <section class="section">
+    <div class="container">
+      <div class="card-grid" id="drivers-container">
+        <!-- Rendered dynamically via API -->
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <div>TRANSITX – Campus Bus Driver Directory</div>
+        <div>Protected student safety credentials</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    async function loadDrivers() {
+      const container = document.getElementById('drivers-container');
+      if (!container) return;
+
+      container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem;"><p>Loading driver details...</p></div>`;
+
+      try {
+        const res = await api.get('/drivers');
+        const drivers = res.data || [];
+
+        if (drivers.length === 0) {
+          container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem;"><h3>No drivers listed.</h3></div>`;
+          return;
+        }
+
+        container.innerHTML = drivers.map(d => `
+          <div class="card" style="border-top: 4px solid var(--teal);">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem;">
+              <div style="width: 56px; height: 56px; border-radius: 50%; background: var(--sky-blue); color: var(--navy); display: flex; align-items: center; justify-content: center; font-size: 1.75rem;">
+                👨‍✈️
+              </div>
+              <div>
+                <h3 style="margin-bottom: 0.2rem; font-size: 1.25rem;">${d.fullName}</h3>
+                <span class="badge" style="background: var(--sky-blue-light); color: var(--navy);">ID: ${d.driverCode}</span>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.92rem; border-top: 1px solid var(--border-light); padding-top: 1rem;">
+              <div><strong>Assigned Bus:</strong> <span style="color: var(--teal); font-weight: 700;">${d.assignedBusNumber || 'Unassigned'}</span></div>
+              <div><strong>Assigned Route:</strong> ${d.assignedRouteName || 'Unassigned'}</div>
+              <div><strong>Experience:</strong> ${d.experienceYears} Years</div>
+              <div><strong>License No:</strong> ${d.licenseNo || 'Verified'}</div>
+              <div><strong>Emergency Phone:</strong> <a href="tel:${d.phone}" style="font-weight: 600;">+91 ${d.phone}</a></div>
+            </div>
+          </div>
+        `).join('');
+      } catch (err) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: #E02424;"><p>Failed to load driver details. Please log in if required.</p></div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadDrivers);
+  </script>
+</body>
+</html>

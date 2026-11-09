@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Login – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon">🚌</span>
+        <span>TRANSITX</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="bus-routes.html" class="nav-link">Bus Routes</a></li>
+        <li><a href="bus-tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navbar-auth-section">
+        <a href="register.html" class="btn btn-teal btn-sm">Register</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎒</div>
+        <h2>Student Login</h2>
+        <p>Access your bus schedule, live tracking, and digital bus pass</p>
+      </div>
+
+      <div id="login-alert" style="display: none;"></div>
+
+      <form id="student-login-form">
+        <div class="form-group">
+          <label class="form-label">Register Number or Email Address</label>
+          <input type="text" id="login-identifier" class="form-control" placeholder="e.g. REG2024001 or student@transitx.edu" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; font-size: 0.88rem;">
+          <label style="display: flex; align-items: center; gap: 0.35rem; cursor: pointer;">
+            <input type="checkbox"> Remember me
+          </label>
+          <a href="javascript:void(0)" onclick="alert('Please contact the campus transportation administrator at transport@transitx.edu to reset your password.')">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-teal" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+          Login to Student Portal
+        </button>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.92rem;">
+          Don't have an account? <a href="register.html" style="font-weight: 600;">Register Here</a>
+        </div>
+
+        <div style="margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border-light); text-align: center; font-size: 0.85rem; color: var(--text-muted);">
+          <span>Are you a driver or staff?</span>
+          <div style="margin-top: 0.5rem; display: flex; justify-content: center; gap: 1rem;">
+            <a href="driver-login.html" style="color: var(--teal); font-weight: 600;">Driver Portal</a> • 
+            <a href="admin-login.html" style="color: var(--navy); font-weight: 600;">Admin Portal</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer" style="padding: 2rem 0;">
+    <div class="container" style="text-align: center; font-size: 0.85rem;">
+      © 2026 TRANSITX – Smart Campus Transportation and Bus Tracking System
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('student-login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('login-alert');
+      alertBox.style.display = 'none';
+
+      const identifier = document.getElementById('login-identifier').value.trim();
+      const password = document.getElementById('login-password').value;
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerText = 'Authenticating...';
+
+      try {
+        const res = await api.post('/auth/login', { identifier, password });
+        const data = res.data;
+
+        if (data.role !== 'ROLE_STUDENT' && data.role !== 'ROLE_ADMIN') {
+          throw new Error('This portal is for students only. Please use the driver portal.');
+        }
+
+        auth.setUser(data, data.token);
+        showToast('Login successful! Welcome back.', 'success');
+
+        setTimeout(() => {
+          window.location.href = data.role === 'ROLE_ADMIN' ? 'admin-dashboard.html' : 'student-dashboard.html';
+        }, 1000);
+      } catch (err) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = err.message || 'Invalid register number or password.';
+        alertBox.style.display = 'block';
+        btn.disabled = false;
+        btn.innerText = 'Login to Student Portal';
+      }
+    });
+  </script>
+</body>
+</html>

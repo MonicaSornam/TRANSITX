@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Registration – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon">🚌</span>
+        <span>TRANSITX</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="bus-routes.html" class="nav-link">Bus Routes</a></li>
+        <li><a href="bus-tracking.html" class="nav-link">Live Tracking</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navbar-auth-section">
+        <a href="login.html" class="btn btn-outline-sky btn-sm">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Registration Form Wrapper -->
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🎓</div>
+        <h2>Student Registration</h2>
+        <p>Create your student account to access campus routes and bus passes</p>
+      </div>
+
+      <div id="register-alert" style="display: none;"></div>
+
+      <form id="student-register-form">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" id="reg-name" class="form-control" placeholder="e.g. Aaron Sharma" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Register Number *</label>
+            <input type="text" id="reg-no" class="form-control" placeholder="e.g. REG2024099" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Department *</label>
+            <select id="reg-dept" class="form-control" required>
+              <option value="">Select Department</option>
+              <option value="Computer Science & Engineering">Computer Science & Engineering</option>
+              <option value="Information Technology">Information Technology</option>
+              <option value="Electronics & Communication">Electronics & Communication</option>
+              <option value="Mechanical Engineering">Mechanical Engineering</option>
+              <option value="Civil Engineering">Civil Engineering</option>
+              <option value="Management Studies (MBA)">Management Studies (MBA)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Year of Study *</label>
+            <select id="reg-year" class="form-control" required>
+              <option value="">Select Year</option>
+              <option value="1st Year">1st Year</option>
+              <option value="2nd Year">2nd Year</option>
+              <option value="3rd Year">3rd Year</option>
+              <option value="4th Year">4th Year</option>
+              <option value="Postgraduate">Postgraduate</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number *</label>
+            <input type="tel" id="reg-phone" class="form-control" placeholder="10-digit mobile number" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">College Email Address *</label>
+          <input type="email" id="reg-email" class="form-control" placeholder="e.g. student@transitx.edu" required>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <input type="password" id="reg-pass" class="form-control" placeholder="At least 6 characters" minlength="6" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm Password *</label>
+            <input type="password" id="reg-confirm-pass" class="form-control" placeholder="Repeat password" minlength="6" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-teal" style="width: 100%; padding: 0.85rem; font-size: 1rem; margin-top: 0.5rem;">
+          Register Account
+        </button>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.92rem;">
+          Already have an account? <a href="login.html" style="font-weight: 600;">Log In here</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer" style="padding: 2rem 0;">
+    <div class="container" style="text-align: center; font-size: 0.85rem;">
+      © 2026 TRANSITX – Smart Campus Transportation and Bus Tracking System
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('student-register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('register-alert');
+      alertBox.style.display = 'none';
+
+      const fullName = document.getElementById('reg-name').value.trim();
+      const regNo = document.getElementById('reg-no').value.trim();
+      const department = document.getElementById('reg-dept').value;
+      const yearOfStudy = document.getElementById('reg-year').value;
+      const phone = document.getElementById('reg-phone').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const password = document.getElementById('reg-pass').value;
+      const confirmPassword = document.getElementById('reg-confirm-pass').value;
+
+      if (password !== confirmPassword) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = 'Passwords do not match!';
+        alertBox.style.display = 'block';
+        return;
+      }
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerText = 'Creating account...';
+
+      try {
+        const res = await api.post('/auth/student/register', {
+          fullName, regNo, department, yearOfStudy, phone, email, password, confirmPassword
+        });
+
+        alertBox.className = 'alert alert-success';
+        alertBox.innerText = res.message || 'Registration successful! Redirecting to login...';
+        alertBox.style.display = 'block';
+        showToast('Registration successful! Please login.', 'success');
+
+        setTimeout(() => {
+          window.location.href = 'login.html';
+        }, 1500);
+      } catch (err) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = err.message || 'Registration failed. Check your inputs.';
+        alertBox.style.display = 'block';
+        btn.disabled = false;
+        btn.innerText = 'Register Account';
+      }
+    });
+  </script>
+</body>
+</html>

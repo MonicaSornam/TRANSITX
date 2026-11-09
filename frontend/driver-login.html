@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Driver Login – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body style="background: #EBF2F7;">
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container navbar-container">
+      <a href="index.html" class="logo">
+        <span class="bus-icon">🚌</span>
+        <span>TRANSITX</span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="bus-routes.html" class="nav-link">Bus Routes</a></li>
+        <li><a href="bus-tracking.html" class="nav-link">Live Tracking</a></li>
+      </ul>
+
+      <div class="nav-auth">
+        <a href="login.html" class="btn btn-outline-sky btn-sm">Student Portal</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card" style="border-top: 4px solid var(--teal);">
+      <div class="auth-header">
+        <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">👨‍✈️</div>
+        <h2>Driver Portal Login</h2>
+        <p>Access assigned trips, update live location, and broadcast trip status</p>
+      </div>
+
+      <div id="driver-login-alert" style="display: none;"></div>
+
+      <form id="driver-login-form">
+        <div class="form-group">
+          <label class="form-label">Driver ID / Code</label>
+          <input type="text" id="driver-id-input" class="form-control" placeholder="e.g. DRV001" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <input type="password" id="driver-pass-input" class="form-control" placeholder="Enter driver password" required>
+        </div>
+
+        <div style="margin-bottom: 1.5rem; font-size: 0.85rem; color: var(--text-muted); background: var(--beige); padding: 0.75rem; border-radius: var(--radius-sm);">
+          Demo driver credentials: <strong>DRV001</strong> / <strong>driver123</strong>
+        </div>
+
+        <button type="submit" class="btn btn-teal" style="width: 100%; padding: 0.85rem; font-size: 1rem;">
+          Login as Driver
+        </button>
+
+        <div style="text-align: center; margin-top: 1.5rem; font-size: 0.88rem;">
+          Student? <a href="login.html" style="font-weight: 600;">Go to Student Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer" style="padding: 2rem 0;">
+    <div class="container" style="text-align: center; font-size: 0.85rem;">
+      © 2026 TRANSITX – Official Driver Management Interface
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.getElementById('driver-login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertBox = document.getElementById('driver-login-alert');
+      alertBox.style.display = 'none';
+
+      const identifier = document.getElementById('driver-id-input').value.trim();
+      const password = document.getElementById('driver-pass-input').value;
+
+      const btn = e.target.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.innerText = 'Verifying credentials...';
+
+      try {
+        const res = await api.post('/auth/login', { identifier, password });
+        const data = res.data;
+
+        if (data.role !== 'ROLE_DRIVER' && data.role !== 'ROLE_ADMIN') {
+          throw new Error('This account is not authorized as a driver.');
+        }
+
+        auth.setUser(data, data.token);
+        showToast('Driver login verified', 'success');
+
+        setTimeout(() => {
+          window.location.href = 'driver-dashboard.html';
+        }, 1000);
+      } catch (err) {
+        alertBox.className = 'alert alert-error';
+        alertBox.innerText = err.message || 'Invalid driver code or password.';
+        alertBox.style.display = 'block';
+        btn.disabled = false;
+        btn.innerText = 'Login as Driver';
+      }
+    });
+  </script>
+</body>
+</html>

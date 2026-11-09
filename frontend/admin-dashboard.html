@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard – TRANSITX</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="dashboard-layout">
+    <!-- Admin Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <a href="index.html" class="sidebar-brand">
+          <span>🛡️</span>
+          <span>TRANSITX</span>
+        </a>
+        <span class="sidebar-brand-badge" style="background: #E2E8F0; color: var(--navy); font-weight: 700;">System Administrator</span>
+      </div>
+
+      <ul class="sidebar-nav">
+        <li class="sidebar-item">
+          <a href="javascript:void(0)" class="sidebar-link active" data-tab="tab-overview" onclick="switchTab('tab-overview')">
+            <span class="icon">📊</span>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="javascript:void(0)" class="sidebar-link" data-tab="tab-buses" onclick="switchTab('tab-buses')">
+            <span class="icon">🚌</span>
+            <span>Bus Management</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="javascript:void(0)" class="sidebar-link" data-tab="tab-routes" onclick="switchTab('tab-routes')">
+            <span class="icon">🛣️</span>
+            <span>Route Management</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="javascript:void(0)" class="sidebar-link" data-tab="tab-drivers" onclick="switchTab('tab-drivers')">
+            <span class="icon">👨‍✈️</span>
+            <span>Driver Management</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="javascript:void(0)" class="sidebar-link" data-tab="tab-students" onclick="switchTab('tab-students')">
+            <span class="icon">🎓</span>
+            <span>Student Management</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="javascript:void(0)" class="sidebar-link" data-tab="tab-passes" onclick="switchTab('tab-passes')">
+            <span class="icon">🎫</span>
+            <span>Bus Pass Review</span>
+          </a>
+        </li>
+        <li class="sidebar-item">
+          <a href="bus-tracking.html" class="sidebar-link">
+            <span class="icon">📍</span>
+            <span>Live Bus Map</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <button class="btn-logout" onclick="auth.logout()">
+          <span>🚪</span>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <h2>Campus Transportation Administrative Console</h2>
+          <p>Real-time fleet operations, route planning, and digital pass approvals.</p>
+        </div>
+        <div class="topbar-right">
+          <div class="user-profile">
+            <div class="avatar" style="background: var(--navy); color: var(--white);">A</div>
+            <div class="user-info">
+              <span class="user-name">Transport Director</span>
+              <span class="user-role">ADMIN</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="dashboard-content">
+        <!-- 6 Required Admin Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Total Students</div>
+              <div class="stat-value" id="stat-total-students">0</div>
+            </div>
+            <div class="stat-icon">🎓</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Total Buses</div>
+              <div class="stat-value" id="stat-total-buses">0</div>
+            </div>
+            <div class="stat-icon">🚌</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Total Drivers</div>
+              <div class="stat-value" id="stat-total-drivers">0</div>
+            </div>
+            <div class="stat-icon">👨‍✈️</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Total Routes</div>
+              <div class="stat-value" id="stat-total-routes">0</div>
+            </div>
+            <div class="stat-icon">🛣️</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Pass Applications</div>
+              <div class="stat-value" id="stat-total-passes">0</div>
+            </div>
+            <div class="stat-icon">🎫</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-info">
+              <div class="stat-label">Active Trips</div>
+              <div class="stat-value" style="color: var(--teal);" id="stat-active-trips">0</div>
+            </div>
+            <div class="stat-icon">⚡</div>
+          </div>
+        </div>
+
+        <!-- TAB 1: OVERVIEW -->
+        <div id="tab-overview" class="tab-content">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            <div class="content-box">
+              <div class="content-box-header">
+                <h3>System Administration Status</h3>
+                <span class="badge badge-active">MySQL Connected</span>
+              </div>
+              <p style="margin-bottom: 1rem;">
+                TRANSITX is running on Spring Boot 3 with high-performance connection pooling to the MySQL database.
+              </p>
+              <div style="background: var(--sky-blue-light); padding: 1rem; border-radius: var(--radius-md); font-size: 0.9rem;">
+                <div><strong>Database:</strong> campus_bus_tracking</div>
+                <div><strong>Backend Engine:</strong> Java 17 + Spring Data JPA</div>
+                <div><strong>Security Protocol:</strong> JWT Bearer Authentication & BCrypt</div>
+              </div>
+            </div>
+
+            <div class="content-box">
+              <div class="content-box-header">
+                <h3>Quick Management Actions</h3>
+              </div>
+              <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <button class="btn btn-teal" onclick="openAdminModal('bus-modal')">+ Add New College Bus</button>
+                <button class="btn btn-navy" onclick="openAdminModal('route-modal')">+ Add New Transit Route</button>
+                <a href="bus-tracking.html" class="btn btn-outline-teal">Launch Real-time GPS Radar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: BUS MANAGEMENT -->
+        <div id="tab-buses" class="tab-content" style="display: none;">
+          <div class="content-box">
+            <div class="content-box-header">
+              <h3>Bus Fleet Management</h3>
+              <button class="btn btn-teal btn-sm" onclick="openAdminModal('bus-modal')">+ Add Bus</button>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Bus Number</th>
+                    <th>Model / License Plate</th>
+                    <th>Seating Capacity</th>
+                    <th>Fleet Status</th>
+                    <th>Assigned Route</th>
+                    <th>Assigned Driver</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-buses-table">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 3: ROUTE MANAGEMENT -->
+        <div id="tab-routes" class="tab-content" style="display: none;">
+          <div class="content-box">
+            <div class="content-box-header">
+              <h3>College Bus Route Management</h3>
+              <button class="btn btn-navy btn-sm" onclick="openAdminModal('route-modal')">+ Add Route</button>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Code</th>
+                    <th>Route Name</th>
+                    <th>Origin ➔ Destination</th>
+                    <th>Schedule</th>
+                    <th>Total Stops</th>
+                    <th>Assigned Bus</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-routes-table">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 4: DRIVER MANAGEMENT -->
+        <div id="tab-drivers" class="tab-content" style="display: none;">
+          <div class="content-box">
+            <div class="content-box-header">
+              <h3>Driver Roster & Allocations</h3>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Driver Code</th>
+                    <th>Full Name</th>
+                    <th>Phone</th>
+                    <th>License Number</th>
+                    <th>Experience</th>
+                    <th>Assigned Bus</th>
+                    <th>Assigned Route</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-drivers-table">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 5: STUDENT MANAGEMENT -->
+        <div id="tab-students" class="tab-content" style="display: none;">
+          <div class="content-box">
+            <div class="content-box-header">
+              <h3>Enrolled Student Transits</h3>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Register No</th>
+                    <th>Student Name</th>
+                    <th>Department & Year</th>
+                    <th>Email</th>
+                    <th>Allocated Bus</th>
+                    <th>Allocated Route</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-students-table">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 6: BUS PASS REVIEW -->
+        <div id="tab-passes" class="tab-content" style="display: none;">
+          <div class="content-box">
+            <div class="content-box-header">
+              <h3>Bus Pass Applications & Approvals</h3>
+            </div>
+            <div class="data-table-wrapper">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Pass ID</th>
+                    <th>Student</th>
+                    <th>Applied Route</th>
+                    <th>Boarding Stop</th>
+                    <th>Status</th>
+                    <th>Validity End</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="admin-passes-table">
+                  <!-- Populated via admin.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ADD BUS MODAL -->
+  <div id="bus-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="margin: 0; color: var(--navy);">Add New College Bus</h3>
+        <button class="modal-close" onclick="closeAdminModal('bus-modal')">&times;</button>
+      </div>
+      <form id="add-bus-form">
+        <div class="form-group">
+          <label class="form-label">Bus Number *</label>
+          <input type="text" id="add-bus-number" class="form-control" placeholder="e.g. BUS-05" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Seating Capacity *</label>
+          <input type="number" id="add-bus-capacity" class="form-control" value="50" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Model & Plate Information *</label>
+          <input type="text" id="add-bus-model" class="form-control" placeholder="e.g. KA-01-TX-1005 (Tata Starbus)" required>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-navy btn-sm" onclick="closeAdminModal('bus-modal')">Cancel</button>
+          <button type="submit" class="btn btn-teal btn-sm">Save Bus</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ADD ROUTE MODAL -->
+  <div id="route-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 style="margin: 0; color: var(--navy);">Add New Bus Route</h3>
+        <button class="modal-close" onclick="closeAdminModal('route-modal')">&times;</button>
+      </div>
+      <form id="add-route-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Route Code *</label>
+            <input type="text" id="add-route-code" class="form-control" placeholder="e.g. RT-104" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Route Name *</label>
+            <input type="text" id="add-route-name" class="form-control" placeholder="e.g. North Lake Connector" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Starting Point *</label>
+            <input type="text" id="add-route-start" class="form-control" placeholder="e.g. Hebbal Flyover" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Destination Point *</label>
+            <input type="text" id="add-route-end" class="form-control" placeholder="e.g. Main Campus Gate 1" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Departure Time *</label>
+            <input type="text" id="add-route-dep" class="form-control" placeholder="e.g. 07:15 AM" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Arrival Time *</label>
+            <input type="text" id="add-route-arr" class="form-control" placeholder="e.g. 08:30 AM" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Est. Duration *</label>
+            <input type="text" id="add-route-dur" class="form-control" placeholder="e.g. 75 mins" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Distance (km) *</label>
+            <input type="number" step="0.1" id="add-route-dist" class="form-control" placeholder="e.g. 28.5" required>
+          </div>
+        </div>
+        <div style="display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem;">
+          <button type="button" class="btn btn-navy btn-sm" onclick="closeAdminModal('route-modal')">Cancel</button>
+          <button type="submit" class="btn btn-teal btn-sm">Create Route</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
